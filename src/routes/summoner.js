@@ -10,7 +10,8 @@ const staticServices = require('./services/static-services.js');
  * */
 router.get('/', async (req, res) => { 
     // Gets latest match history/
-    try { 
+    try {
+        debugger
         const summonerName = req.query.name;
         const accountId = await accountServices.getSummonerAccountInfo(req.query.region, summonerName);
         let dataSet = await matchServices.getSummonersMatchHistory(req.query.region, accountId);

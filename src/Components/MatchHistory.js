@@ -6,21 +6,16 @@ export default class MatchHistory extends React.Component{
     render() { 
         
         if (this.props.games) { 
-
-        /*                 </div>
-                                <div className="match-rune"> 
-                                    {match.runes.map( rune => {
-                                        return(
-                                        <div> 
-                                            <img className = "match-rune-image" src={rune.url}/>
-                                        </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </div>
-                */
-        const matches = this.props.games.map( (match, index) => {
+            const getRunes = function(match) { 
+                if (match.runes) {
+                    return   <div className="match-mid-abilites">
+                                <img src={match.runes[0].url}/>
+                                <img src={match.runes[1].url}/>
+                             </div>
+               
+                }
+            }
+            const matches = this.props.games.map( (match, index) => {
             // TODO: Check the match.win string check vs real data.
             // placeholder: "win"
             const mins = Math.floor(match.gameDuration / 60);
@@ -44,10 +39,9 @@ export default class MatchHistory extends React.Component{
                                 <img src={match.spell1.url}/>
                                 <img src={match.spell2.url}/>
                 </div>
-                <div className="match-mid-abilites">
-                            <img src={match.runes[0].url}/>
-                            <img src={match.runes[1].url}/>
-                </div>
+                {getRunes}
+                
+              
                             <div className = "match-champion"> 
                                 <span className="match-champion-name"> {match.champion.name} </span>
                                 <span className="match-champion-level"> Level {match.champLevel} </span>

@@ -50,27 +50,29 @@ buildItemOutput = function (stats) {
             return { 
                 name: itemJsonData.data[id].name,
                 url : "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/" + itemJsonData.data[id].image.full
-           }
+            }
         }
     });
     return outArr.filter(item => item !== undefined);
 }
 
 buildRuneOutput = function (runeArray) {
-    const runeArrOut = runeArray.map( rune => {
-        const runeId = rune.runeId;
-        const name = runeJsonData.data[runeId].name;
-        const imageName = runeJsonData.data[runeId].image.full;
-        return ({ 
-            runeId: runeId, 
-            name: name,
-            url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/" + imageName
+    if (runeArray) { 
+        return runeArray.map( rune => {
+            const runeId = rune.runeId;
+            const name = runeJsonData.data[runeId].name;
+            const imageName = runeJsonData.data[runeId].image.full;
+            return ({ 
+                runeId: runeId, 
+                name: name,
+                url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/" + imageName
+            });
         });
-    });
-    return runeArrOut;
+    }
+    return [];
 }
 
-buildSpellOutput = function (spellId) { 
+buildSpellOutput = function (spellId) {
     const data = summonerAbilityJsonData.data;
     let name = '';
     for (var key in data) { 
@@ -118,6 +120,7 @@ getLatestGamesData = function (region, gamesArr, summonerName)  {
                 url: link,
                 params: {'api_key': API_KEY}
             }).then(gameObject => {
+                debugger
                 // save duration and data for specific participant
                 let length = gameObject.data.gameDuration;
                 let ids = gameObject.data.participantIdentities;
@@ -134,12 +137,13 @@ getLatestGamesData = function (region, gamesArr, summonerName)  {
                         playerData = player;
                     }
                 });
-                
+
 
                 // TODO: Move to sprite sheets rather than external URL
                 const minutes = Math.floor(length / 60);
                 const minionPerMin = Math.round((playerData.stats.totalMinionsKilled / minutes 
-                                + 0.00001) * 100) / 100
+                    + 0.00001) * 100) / 100
+                debugger;
                 const playerMatchOutput = {
                     champion: buildChampionOutput(playerData.championId),
                     spell1: buildSpellOutput(playerData.spell1Id),
