@@ -1,0 +1,128 @@
+.grid-container {
+  grid-template-columns: repeat(12, 1fr); }
+
+.grid-1 {
+  grid-column: span 1; }
+
+.grid-2 {
+  grid-column: span 2; }
+
+.grid-3 {
+  grid-column: span 3; }
+
+.grid-4 {
+  grid-column: span 4; }
+
+.grid-5 {
+  grid-column: span 5; }
+
+.grid-6 {
+  grid-column: span 6; }
+
+.grid-7 {
+  grid-column: span 7; }
+
+.grid-8 {
+  grid-column: span 8; }
+
+.grid-9 {
+  grid-column: span 9; }
+
+.grid-10 {
+  grid-column: span 10; }
+
+.grid-11 {
+  grid-column: span 11; }
+
+.grid-12 {
+  grid-column: span 12; }
+
+.matchhistory-container {
+  width: 800px;
+  background: inherit; }
+
+.match {
+  grid-template-columns: 40px auto;
+  display: grid;
+  border: 2px solid black;
+  margin-bottom: 5px;
+  box-shadow: -1px 2px; }
+
+.match-win {
+  background-color: #A4D0EB; }
+
+.match-loss {
+  background-color: #E1B6B4; }
+
+.match-win > .match-lhs {
+  background-color: #64b1e4; }
+
+.match-loss > .match-lhs {
+  background-color: #e89d99; }
+
+.match-lhs {
+  grid-column: span 40px;
+  border-right: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+  .match-lhs > span {
+    font-size: 24px; }
+
+.match-mid {
+  grid-column: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px; }
+
+.match-inline {
+  display: inline-block; }
+
+.match-mid-champ-pics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+  .match-mid-champ-pics > img {
+    border-radius: 50px;
+    width: 50px;
+    height: 50px; }
+
+.match-mid-abilites {
+  display: flex;
+  flex-direction: column; }
+  .match-mid-abilites > img {
+    border-radius: 50px;
+    width: 25px;
+    height: 25px; }
+
+.match-champion {
+  display: flex;
+  flex-direction: column; }
+
+.match-champion-name {
+  font-size: 24px;
+  font-weight: 800; }
+
+.match-champion-level {
+  font-size: 18px;
+  font-weight: 600; }
+
+.match-item-list {
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 100px;
+  grid-column-start: 10;
+  grid-column-end: 12; }
+  .match-item-list > img {
+    margin: 1px;
+    width: 25px;
+    height: 25px; }
+
+.match-stats {
+  grid-column-start: 5;
+  grid-column-end: 9; }
+
+/*# sourceMappingURL=main.css.map*/

@@ -4,6 +4,7 @@ const API_KEY = require('../../../keys.js')();
 const itemJsonData = require('../../data/item.json');
 const runeJsonData = require('../../data/rune.json');
 const championJsonData = require('../../data/champion.json');
+const summonerAbilityJsonData = require('../../data/summoner.json');
 /**
  *  Performs service call to LoL API for an account ID and gets latest matches.
  *  Requires an account ID and platform ID.
@@ -36,51 +37,72 @@ getSummonersMatchHistory = function (region, accountId) {
  * item [codes] purchased, level, creep score, creep score per min.
  **/
 truncateDataSet = function (playerDataSet) { 
-   // playerDataSet should be an array of objects.
+    // playerDataSet should be an array of objects.
 }
 
 /**
  * Build Item output to include CDN and item id
  */
-buildItemOutput = function (itemId) { 
-    return {
-        itemId : itemId,
-        name : itemJsonData.data.name,
-        url : "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/" + itemId + ".png"
-    }
+buildItemOutput = function (stats) {
+    const itemArr = [ stats.item0, stats.item1, stats.item2, stats.item3, stats.item4, stats.item5, stats.item6];
+    const outArr = itemArr.map( id  => {
+        if (id > 0 && itemJsonData.data[id]) {
+            return { 
+                name: itemJsonData.data[id].name,
+                url : "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/" + itemJsonData.data[id].image.full
+           }
+        }
+    });
+    return outArr.filter(item => item !== undefined);
 }
 
 buildRuneOutput = function (runeArray) {
-    let runeArrOut = [];
-    runeArray.forEach( runeId => {
-        runeArrOut.push({
-         runeId : runeId,
-         name : runeJsonData.data.runeId,
-         url: "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/" + runeId + ".png"
-
-        })
+    const runeArrOut = runeArray.map( rune => {
+        const runeId = rune.runeId;
+        const name = runeJsonData.data[runeId].name;
+        const imageName = runeJsonData.data[runeId].image.full;
+        return ({ 
+            runeId: runeId, 
+            name: name,
+            url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/" + imageName
+        });
     });
     return runeArrOut;
 }
 
 buildSpellOutput = function (spellId) { 
+    const data = summonerAbilityJsonData.data;
+    let name = '';
+    for (var key in data) { 
+        if(data[key].key == spellId) { 
+            name = data[key].id;
+            break;
+        }
+    }
     return { 
         runeId : spellId,
-        url: "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/" + spellId + ".png"
+        name : name, 
+        url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/" + name  + ".png"
     }
 }
 
 // Filter JSON for target 
 buildChampionOutput = function(championId) {
     const data = championJsonData.data;
+    let name = '';
     for (var key in data) { 
         if (data[key].key == championId) { 
-                return data[key].id;
-            }
+            name = data[key].id;
+            break;
+        }
     }
+    const url = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/" + name + ".png";
+    const champion = { 
+        url : url,
+        name: name
+    }
+    return champion;
 }
-
-
 /**
  * Performs service call to LoL API for game data.
  * Requires region and games array containing gameId's
@@ -112,25 +134,25 @@ getLatestGamesData = function (region, gamesArr, summonerName)  {
                         playerData = player;
                     }
                 });
+                
+
                 // TODO: Move to sprite sheets rather than external URL
+                const minutes = Math.floor(length / 60);
+                const minionPerMin = Math.round((playerData.stats.totalMinionsKilled / minutes 
+                                + 0.00001) * 100) / 100
                 const playerMatchOutput = {
-                    championName: buildChampionOutput(playerData.championId),
-                    spell1Id: buildSpellOutput(playerData.spell1Id),
-                    spell2Id : buildSpellOutput(playerData.spell2Id),
+                    champion: buildChampionOutput(playerData.championId),
+                    spell1: buildSpellOutput(playerData.spell1Id),
+                    spell2 : buildSpellOutput(playerData.spell2Id),
                     runes : buildRuneOutput(playerData.runes), 
                     gameDuration : length,
                     win : playerData.stats.win,
-                    item0 : buildItemOutput(playerData.stats.item0),
-                    item1 : buildItemOutput(playerData.stats.item1),
-                    item2 : buildItemOutput(playerData.stats.item2),
-                    item3 : buildItemOutput(playerData.stats.item3),
-                    item4 : buildItemOutput(playerData.stats.item4),
-                    item5 : buildItemOutput(playerData.stats.item5),
-                    item6 : buildItemOutput(playerData.stats.item6),
+                    itemArr : buildItemOutput(playerData.stats),
                     kills: playerData.stats.kills,
                     deaths: playerData.stats.deaths,
                     assists: playerData.stats.assists,
                     totalMinionsKilled: playerData.stats.totalMinionsKilled,
+                    minionPerMin: minionPerMin,
                     champLevel : playerData.stats.champLevel
                 }
                 resolve(playerMatchOutput);

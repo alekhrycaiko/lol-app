@@ -26,7 +26,8 @@ class MatchHistoryContainer extends React.Component {
     }
     render() {
         return(
-             <MatchHistory summoner={this.state.games.name} games={this.state.games.data}/>)
+                <MatchHistory summoner={this.state.games.name} games={this.state.games.data}/>
+        )
     }
 }
 export default MatchHistoryContainer;

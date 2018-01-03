@@ -1,0 +1,101 @@
+@import "./Grid.scss";
+
+$win :  #A4D0EB;
+$win-alt: #64b1e4;
+$loss : #E1B6B4;
+$loss-alt: #e89d99;
+$match-height : 100px;
+
+.matchhistory-container { 
+    width: 800px;
+    background: inherit;
+}
+.match { 
+    grid-template-columns: 40px auto;
+    display: grid;
+    border: 2px solid black;
+    margin-bottom: 5px;
+    box-shadow: -1px 2px; 
+}
+.match-win { 
+    background-color: $win;
+}
+.match-loss { 
+    background-color: $loss;
+}
+.match-win > .match-lhs { 
+    background-color: $win-alt;
+}
+.match-loss > .match-lhs { 
+    background-color: $loss-alt;
+}
+.match-lhs { 
+    grid-column: span 40px;
+    border-right: 1px solid black;
+    > span { 
+        font-size: 24px;
+    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.match-mid { 
+    grid-column: auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+}
+.match-inline { 
+    display: inline-block;
+}
+
+.match-mid-champ-pics { 
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   > img { 
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+    }
+}
+.match-mid-abilites { 
+    display: flex;
+    flex-direction: column;
+    > img { 
+        border-radius: 50px;
+        width: 25px;
+        height: 25px;
+    }
+}
+.match-champion { 
+    display: flex;
+    flex-direction: column;
+}
+.match-champion-name { 
+    font-size: 24px;
+    font-weight: 800;
+}
+.match-champion-level { 
+    font-size: 18px;
+    font-weight: 600;
+}
+.match-item-list { 
+    flex-direction: column;
+    flex-wrap : wrap;
+    max-width: 100px;
+    > img {
+        margin: 1px;
+        width: 25px;
+        height: 25px;
+    }
+    grid-column-start: 10;
+    grid-column-end: 12;
+}
+.match-stats { 
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
