@@ -6,7 +6,8 @@ class MatchHistoryContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            games : []
+            games : [],
+            hasErr : false
         }
     }
     async componentDidMount() {
@@ -22,12 +23,19 @@ class MatchHistoryContainer extends React.Component {
             });
         } catch (e) { 
             console.log("Error performing request to summoner API : " + e);
+            this.setState({
+                hasErr : true
+            });
         }
     }
     render() {
+        if (this.state.hasErr) {
+           return (<div> Error connecting to API </div>);
+        } else { 
         return(
                 <MatchHistory summoner={this.state.games.name} games={this.state.games.data}/>
-        )
+            )
+        }
     }
 }
 export default MatchHistoryContainer;

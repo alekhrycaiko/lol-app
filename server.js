@@ -20,7 +20,7 @@ if (isDeveloping) {
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
 } else { 
-app.use(express.static(__dirname + '/dist'));
+    app.use(express.static(__dirname + '/dist'));
 }
 app.use("/summoner", summonerMatchHistory);
 app.get("/", function response(req, res) {
