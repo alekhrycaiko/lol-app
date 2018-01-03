@@ -13,13 +13,15 @@ const app = express();
 // Routes
 const summonerMatchHistory = require("./src/routes/summoner");
 if (isDeveloping) { 
-const compiler = webpack(config);
-const middleware = webpackMiddleware(compiler, { 
-    publicPath: config.output.publicPath,
-    contentBase: 'src'
-});
-app.use(middleware);
-app.use(webpackHotMiddleware(compiler));
+    const compiler = webpack(config);
+    const middleware = webpackMiddleware(compiler, { 
+        publicPath: config.output.publicPath,
+        contentBase: 'src'
+    });
+    app.use(middleware);
+    app.use(webpackHotMiddleware(compiler));
+} else { 
+app.use(express.static(__dirname + '/dist'));
 }
 app.use("/summoner", summonerMatchHistory);
 app.get("/", function response(req, res) {
