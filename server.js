@@ -9,7 +9,6 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const config = require('./webpack.config.js');
 const app = express();
-
 // Routes
 const summonerMatchHistory = require("./src/routes/summoner");
 if (isDeveloping) { 
