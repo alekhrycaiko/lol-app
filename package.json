@@ -4,6 +4,7 @@
   "description": "LoL Match History App",
     "main": "server.js",
   "scripts": {
+    "start" : "node ./server.js",
     "make": "webpack",
     "server": "node ./server.js",
     "test": "test",
