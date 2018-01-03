@@ -1,6 +1,6 @@
 // Responsible for performing lookup of a summoner and obtaining account information. 
 const axios = require('axios');
-const API_KEY = require('../../../keys.js')();
+const API_KEY = process.env.RIOT_API;
 
 /**
  * Performs service call to LoL API and obtains an account ID.

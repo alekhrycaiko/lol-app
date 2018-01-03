@@ -1,8 +1,6 @@
 // Responsible for performing lookup of a summoner and obtaining account information. 
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-const API_KEY = require('../../keys.js')();
 const accountServices = require('./services/account-services.js');
 const matchServices = require('./services/match-services.js');
 const staticServices = require('./services/static-services.js');

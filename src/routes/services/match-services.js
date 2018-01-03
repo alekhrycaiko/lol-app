@@ -1,6 +1,6 @@
 // Responsible for performing lookup of a summoner and obtaining account information. 
 const axios = require('axios');
-const API_KEY = require('../../../keys.js')();
+const API_KEY = process.env.RIOT_API;
 const itemJsonData = require('../../data/item.json');
 const runeJsonData = require('../../data/rune.json');
 const championJsonData = require('../../data/champion.json');

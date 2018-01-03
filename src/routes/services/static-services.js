@@ -1,9 +1,5 @@
 const axios = require('axios');
-const API_KEY = require('../../../keys.js')();
-
-
-
-
+const API_KEY = process.env.RIOT_API;
 
 
 // TODO: Setup service that grabs and caches the JSON Files the solution is using. 
