@@ -120,7 +120,6 @@ getLatestGamesData = function (region, gamesArr, summonerName)  {
                 url: link,
                 params: {'api_key': API_KEY}
             }).then(gameObject => {
-                debugger
                 // save duration and data for specific participant
                 let length = gameObject.data.gameDuration;
                 let ids = gameObject.data.participantIdentities;
@@ -143,7 +142,6 @@ getLatestGamesData = function (region, gamesArr, summonerName)  {
                 const minutes = Math.floor(length / 60);
                 const minionPerMin = Math.round((playerData.stats.totalMinionsKilled / minutes 
                     + 0.00001) * 100) / 100
-                debugger;
                 const playerMatchOutput = {
                     champion: buildChampionOutput(playerData.championId),
                     spell1: buildSpellOutput(playerData.spell1Id),

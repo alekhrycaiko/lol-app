@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "756f4cf5c9323648df5f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "778bf5f8960dbf8a8855"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19772,7 +19772,7 @@ let MatchHistory = class MatchHistory extends __WEBPACK_IMPORTED_MODULE_0_react_
                         { className: 'match-mid grid-container' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'match-mid-champ-pics' },
+                            { className: 'match-mid-champ-pics grid-4' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: match.champion.url }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',

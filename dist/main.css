@@ -84,9 +84,7 @@
 .match-mid-champ-pics {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  grid-column-start: 1;
-  grid-column-end: 4; }
+  justify-content: center; }
   .match-mid-champ-pics > img {
     border-radius: 50px;
     width: 50px;

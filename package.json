@@ -7,7 +7,7 @@
     "start": "node server",
     "make": "webpack",
     "server": "node ./server.js",
-    "test": "test",
+    "test": "jest",
     "debug": "node inspect ./server.js"
   },
   "repository": {
@@ -40,6 +40,5 @@
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^2.0.3",
     "webpack-hot-middleware": "^2.21.0"
-  
   }
 }
