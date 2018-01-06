@@ -76,45 +76,29 @@ module.exports = {
         gamesArr.forEach( gameId => {
             let gamePromise = new Promise( (resolve, reject) => {
                 const link = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + gameId;
-                axios({
-                    method: "GET", 
-                    url: link,
-                    params: {'api_key': API_KEY}
-                }).then(gameObject => {
-                    // save duration and data for specific participant
-                    let length = gameObject.data.gameDuration;
-                    let ids = gameObject.data.participantIdentities;
-                    let playerNumber = "";
-                    ids.forEach(idObj => {
-                        if (idObj.player.summonerName === summonerName) { 
-                            playerNumber = idObj.participantId; 
-                        }
-                    });
-                    const participantsObj  = gameObject.data.participants;
-                    let playerData; 
-                    participantsObj.forEach( player => { 
-                        if (player.participantId === playerNumber) { 
-                            playerData = player;
-                        }
-                    });
-                    // TODO: Move to sprite sheets rather than external URL
+                axios.get(link, {params: {'api_key' : API_KEY}})
+                .then(gameObject => {
+                    const {data: {gameDuration : length, participantIdentities : ids, participants : participantsObj}}  = gameObject;
+                    const {participantId: playerNumber} = R.find(idObj => idObj.player.summonerName === summonerName)(ids);
+                    const playerData  = R.find(player => player.participantId === playerNumber)(participantsObj);
+                    const {stats, stats: {assists, champLevel, deaths, kills, totalMinionsKilled, win}, championId, runes, spell1Id, spell2Id} = playerData;
                     const minutes = Math.floor(length / 60);
-                    const minionPerMin = Math.round((playerData.stats.totalMinionsKilled / minutes 
-                        + 0.00001) * 100) / 100
+                    const minionPerMin = Math.round((totalMinionsKilled / minutes  + 0.00001) * 100) / 100
+                    
                     const playerMatchOutput = {
-                        champion: this.buildChampionOutput(playerData.championId),
-                        spell1: this.buildSpellOutput(playerData.spell1Id),
-                        spell2 : this.buildSpellOutput(playerData.spell2Id),
-                        runes : this.buildRuneOutput(playerData.runes), 
+                        champion: this.buildChampionOutput(championId),
+                        spell1: this.buildSpellOutput(spell1Id),
+                        spell2 : this.buildSpellOutput(spell2Id),
+                        runes : this.buildRuneOutput(runes), 
                         gameDuration : length,
-                        win : playerData.stats.win,
-                        itemArr : this.buildItemOutput(playerData.stats),
-                        kills: playerData.stats.kills,
-                        deaths: playerData.stats.deaths,
-                        assists: playerData.stats.assists,
-                        totalMinionsKilled: playerData.stats.totalMinionsKilled,
+                        win : win,
+                        itemArr : this.buildItemOutput(stats),
+                        kills: kills,
+                        deaths: deaths,
+                        assists: assists,
+                        totalMinionsKilled: totalMinionsKilled,
                         minionPerMin: minionPerMin,
-                        champLevel : playerData.stats.champLevel
+                        champLevel : champLevel
                     }
                     resolve(playerMatchOutput);
                 }).catch( err => {
