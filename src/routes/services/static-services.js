@@ -9,7 +9,7 @@ const API_KEY = process.env.RIOT_API;
  */
 module.exports = { 
     async getChampionName (region, id) {
-        const link = "https://" + region + ".api.riotgames.com/lol/static-data/v3/champions/" + id + "?locale=en_US";
+        const link = `https://${region}.api.riotgames.com/lol/static-data/v3/champions/${id}?locale=en_US`;
         const {data : {name}} =  await axios.get(link, {params: { 'api_key' : API_KEY }});
         return name;
     }

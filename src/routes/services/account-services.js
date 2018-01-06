@@ -8,7 +8,7 @@ const API_KEY = process.env.RIOT_API;
  */
 module.exports = { 
     async getSummonerAccountInfo (region, name) {
-        const link = "https://" +  region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
+        const link = `https://${region}.api.riotgames.com/lol/summoner/v3/summoners/by-name/${name}`;
         const {data : {accountId}} =  await axios.get(link, {params: { 'api_key' : API_KEY }});
         return accountId; 
     }

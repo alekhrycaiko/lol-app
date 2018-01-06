@@ -12,7 +12,7 @@ const R = require('ramda');
  */
 module.exports = { 
     async getSummonersMatchHistory (region, accountId) {
-        const link = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + "/recent";
+        const link = `https://${region}.api.riotgames.com/lol/match/v3/matchlists/by-account/${accountId}/recent`;
         const {data : {matches}} = await axios.get(link, { params: {'api_key' : API_KEY}});
         return matches.map( item => item.gameId);      
     },
@@ -28,7 +28,7 @@ module.exports = {
                 const {name, image: {full : imageName}} = data[id];
                 return ({ 
                     name: name,
-                    url: "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/" + imageName
+                    url: `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/${imageName}`
                 });
             });
     },
@@ -41,7 +41,7 @@ module.exports = {
             return ({ 
                 runeId: runeId, 
                 name: name,
-                url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/" + imageName
+                url: `https://ddragon.leagueoflegends.com/cdn/6.24.1/img/rune/${imageName}`
             });
         });
     },
@@ -52,7 +52,7 @@ module.exports = {
         return { 
             runeId : spellId,
             name : spellName, 
-            url: "https://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/" + spellName  + ".png"
+            url: `https://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${spellName}.png`
         }
     },
 
@@ -61,7 +61,7 @@ module.exports = {
         const {data} = championJsonData;
         const championName = R.find((item => data[item].key == championId))(R.keys(data));
         return { 
-            url : "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/" + championName + ".png",
+            url : `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${championName}.png`,
             name: championName
         }
     },
@@ -75,7 +75,7 @@ module.exports = {
         let gamePromiseArr = [];
         gamesArr.forEach( gameId => {
             let gamePromise = new Promise( (resolve, reject) => {
-                const link = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + gameId;
+                const link = `https://${region}.api.riotgames.com/lol/match/v3/matches/${gameId}`;
                 axios.get(link, {params: {'api_key' : API_KEY}})
                 .then(gameObject => {
                     const {data: {gameDuration : length, participantIdentities : ids, participants : participantsObj}}  = gameObject;
