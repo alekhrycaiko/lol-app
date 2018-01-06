@@ -11,7 +11,7 @@ const staticServices = require('./services/static-services.js');
 router.get('/', async (req, res) => { 
     // Gets latest match history/
     try {
-        const {query : {name : summonerName}, query: {region : region}} = req;
+        const {query : {name : summonerName,  region : region}} = req;
         const accountId = await accountServices.getSummonerAccountInfo(region, summonerName);
         let dataSet = await matchServices.getSummonersMatchHistory(region, accountId);
         const truncatedDataSet = dataSet.slice(0, 10);
