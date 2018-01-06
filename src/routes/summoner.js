@@ -11,9 +11,9 @@ const staticServices = require('./services/static-services.js');
 router.get('/', async (req, res) => { 
     // Gets latest match history/
     try {
-        const summonerName = req.query.name;
-        const accountId = await accountServices.getSummonerAccountInfo(req.query.region, summonerName);
-        let dataSet = await matchServices.getSummonersMatchHistory(req.query.region, accountId);
+        const {query : {name : summonerName}, query: {region : region}} = req;
+        const accountId = await accountServices.getSummonerAccountInfo(region, summonerName);
+        let dataSet = await matchServices.getSummonersMatchHistory(region, accountId);
         const truncatedDataSet = dataSet.slice(0, 10);
         let gameData = await matchServices.getLatestGamesData(req.query.region, truncatedDataSet, summonerName);
         const output = { 
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
             data: gameData,
         }
         res.json(output);
-    } catch (err) { 
+    } catch (err) {
         res.status(500).send("Error resolving match history for summoner: " + err);
     }
 });
