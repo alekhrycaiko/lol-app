@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ErrorBoundary from './Components/ErrorBoundary';
-import MatchHistoryContainer from './Components/MatchHistoryContainer';
+import ErrorBoundary from './Components/ErrorBoundary.jsx';
+import MatchHistoryContainer from './Components/MatchHistoryContainer.jsx';
 import "./stylesheets/MatchHistory.scss";
 export default class App extends React.Component { 
     constructor(props) { 
