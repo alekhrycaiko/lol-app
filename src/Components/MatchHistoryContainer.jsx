@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MatchHistory from './MatchHistory';
+import MatchHistory from './MatchHistory.jsx';
 import axios from 'axios';
 class MatchHistoryContainer extends React.Component { 
 
