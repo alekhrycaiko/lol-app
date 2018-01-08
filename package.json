@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server",
     "make": "webpack",
-    "server": "node ./server.js",
+    "server": "node server",
     "test": "jest",
-    "debug": "node inspect ./server.js"
+    "debug": "node inspect server"
   },
   "repository": {
     "type": "git",

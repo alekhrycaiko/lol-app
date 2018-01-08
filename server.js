@@ -19,13 +19,14 @@ if (isDeveloping) {
     });
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
+    app.get('/', function response (req, res) { 
+        res.sendFile(path.join(__dirname, "dist/index.html"));
+    });
 } else { 
     app.use(express.static(__dirname + '/dist'));
 }
 app.use("/summoner", summonerMatchHistory);
-app.get("/", function response(req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
+
 app.listen(port, '0.0.0.0', function onStart(err) { 
     if (err) { 
         console.log(err);
